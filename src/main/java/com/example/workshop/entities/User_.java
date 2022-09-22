@@ -3,22 +3,35 @@ package com.example.workshop.entities;
 import java.io.Serializable;
 import java.util.Objects;
 
-public class User implements Serializable{	
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
+
+//IMPORTANTE: Foi necessário usar o nome da classe como User_ tendo em vista que existe uma palavra reservada "user" no banco H2
+//ao utilizar user estava gerando erro na aplicação spring boot
+
+@Entity
+public class User_ implements Serializable {
 	private static final long serialVersionUID = 1L;
-	//Usa-se a interface Serializable quando você que os seus objetos possam ser transformados em cadeias de bytes
-	//Pra que o obj trafegue na rede para que possa ser gravado em arquivo, etc...	
-	
+	// Usa-se a interface Serializable quando você que os seus objetos possam ser
+	// transformados em cadeias de bytes
+	// Pra que o obj trafegue na rede para que possa ser gravado em arquivo, etc...
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private String name;
 	private String email;
 	private String phone;
 	private String password;
-	
-	public User() { //obrigatório usar o construtor vazio para o framework 		
+
+	public User_() { // obrigatório usar o construtor vazio para o framework
 	}
 
-	public User(Long id, String name, String email, String phone, String password) {
-		super();
+	public User_(Long id, String name, String email, String phone, String password) {
+		// super();
 		this.id = id;
 		this.name = name;
 		this.email = email;
@@ -79,7 +92,7 @@ public class User implements Serializable{
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		User other = (User) obj;
+		User_ other = (User_) obj;
 		return Objects.equals(id, other.id);
 	}
 
