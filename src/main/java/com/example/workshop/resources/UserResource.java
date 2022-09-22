@@ -10,7 +10,7 @@ import com.example.workshop.entities.User_;
 @RestController
 @RequestMapping(value = "/users")
 public class UserResource {
-//Camada de Recurso que são os controladores REST --> Serviços --> Dados
+//Camada de Recurso que são os controladores REST --> Serviços(services) --> Dados (repositories)
 
 	@GetMapping
 	public ResponseEntity<User_> findAll() {
