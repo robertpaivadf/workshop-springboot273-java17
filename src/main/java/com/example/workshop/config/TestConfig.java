@@ -10,10 +10,12 @@ import org.springframework.context.annotation.Profile;
 
 import com.example.workshop.entities.Category;
 import com.example.workshop.entities.Order;
+import com.example.workshop.entities.OrderItem;
 import com.example.workshop.entities.Product;
 import com.example.workshop.entities.User;
 import com.example.workshop.entities.enums.OrderStatus;
 import com.example.workshop.repositories.CategoryRepository;
+import com.example.workshop.repositories.OrderItemRepository;
 import com.example.workshop.repositories.OrderRepository;
 import com.example.workshop.repositories.ProductRepository;
 import com.example.workshop.repositories.UserRepository;
@@ -35,6 +37,9 @@ public class TestConfig implements CommandLineRunner {
 	@Autowired // só com isso o próprio spring resolve esta dependência
 	private ProductRepository productRepository;
 
+	@Autowired // só com isso o próprio spring resolve esta dependência
+	private OrderItemRepository orderItemRepository;
+
 	// Um macete: A classe está implementando CommandLineRunner para usar o método
 	// run, esse método executa quando a aplicação for iniciada
 	@Override
@@ -50,16 +55,16 @@ public class TestConfig implements CommandLineRunner {
 		Product p5 = new Product(null, "Rails for Dummies", "Cras fringilla convallis sem vel faucibus.", 100.99, "");
 		categoryRepository.saveAll(Arrays.asList(cat1, cat2, cat3)); // userRepository.saveAll recebe uma lista
 		productRepository.saveAll(Arrays.asList(p1, p2, p3, p4, p5)); // userRepository.saveAll recebe uma lista
-		
+
 		p1.getCategories().add(cat2);
 		p2.getCategories().add(cat1);
 		p2.getCategories().add(cat3);
 		p3.getCategories().add(cat3);
 		p4.getCategories().add(cat3);
 		p5.getCategories().add(cat2);
-		
+
 		productRepository.saveAll(Arrays.asList(p1, p2, p3, p4, p5)); // userRepository.saveAll recebe uma lista
-		
+
 		User u1 = new User(null, "Maria Brown", "maria@gmail.com", "988888888", "123456");
 		User u2 = new User(null, "Alex Green", "alex@gmail.com", "977777777", "123456");
 
@@ -70,11 +75,13 @@ public class TestConfig implements CommandLineRunner {
 		// persistindo os dados no banco de dados
 		userRepository.saveAll(Arrays.asList(u1, u2)); // userRepository.saveAll recebe uma lista
 		orderRepository.saveAll(Arrays.asList(o1, o2, o3)); // userRepository.saveAll recebe uma lista
-		
-		
 
-		
-		
+		OrderItem oi1 = new OrderItem(o1, p1, 2, p1.getPrice());
+		OrderItem oi2 = new OrderItem(o1, p3, 1, p3.getPrice());
+		OrderItem oi3 = new OrderItem(o2, p3, 2, p3.getPrice());
+		OrderItem oi4 = new OrderItem(o3, p5, 2, p5.getPrice());
+
+		orderItemRepository.saveAll(Arrays.asList(oi1, oi2, oi3, oi4)); // userRepository.saveAll recebe uma lista
 
 	}
 
