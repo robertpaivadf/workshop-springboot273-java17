@@ -1,36 +1,46 @@
 package com.example.workshop.entities;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 //IMPORTANTE: Foi necessário usar o nome da classe como User_ tendo em vista que existe uma palavra reservada "user" no banco H2
 //ao utilizar user estava gerando erro na aplicação spring boot
 
-@Entity
-public class User_ implements Serializable {
+@Entity // Anotations para que o JPA crie/atualize o banco de dados
+@Table(name = "tb_user")
+public class User implements Serializable {
 	private static final long serialVersionUID = 1L;
-	// Usa-se a interface Serializable quando você que os seus objetos possam ser
-	// transformados em cadeias de bytes
-	// Pra que o obj trafegue na rede para que possa ser gravado em arquivo, etc...
+	// Usa-se a interface Serializable quando você quer que os seus objetos possam
+	// ser
+	// transformados em cadeias de bytes para que o obj trafegue na rede para que
+	// possa ser gravado em arquivo, etc...
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Id // Anotations para que o JPA crie/atualize os campos da entidade no banco de
+		// dados
+	@GeneratedValue(strategy = GenerationType.IDENTITY) // define auto incremento no campo id
 	private Long id;
 	private String name;
 	private String email;
 	private String phone;
 	private String password;
 
-	public User_() { // obrigatório usar o construtor vazio para o framework
+	// criando associações
+	@OneToMany(mappedBy = "client")
+	private List<Order> orders = new ArrayList<>(); // um OUser possui vários OOrder
+
+	public User() { // obrigatório usar o construtor vazio para o framework
 	}
 
-	public User_(Long id, String name, String email, String phone, String password) {
+	public User(Long id, String name, String email, String phone, String password) {
 		// super();
 		this.id = id;
 		this.name = name;
@@ -84,6 +94,10 @@ public class User_ implements Serializable {
 		return Objects.hash(id);
 	}
 
+	public List<Order> getOrders() {
+		return orders;
+	}
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -92,7 +106,7 @@ public class User_ implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		User_ other = (User_) obj;
+		User other = (User) obj;
 		return Objects.equals(id, other.id);
 	}
 
