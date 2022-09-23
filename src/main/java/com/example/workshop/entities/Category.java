@@ -9,8 +9,11 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity // Anotations para que o JPA crie/atualize o banco de dados
 @Table(name = "tb_category")
@@ -23,7 +26,9 @@ public class Category implements Serializable {
 	private Long id;
 	private String name;
 	
-	@Transient //Impede que o JPA tente interpretar isso aqui
+	//@Transient //Impede que o JPA tente interpretar isso aqui
+	@ManyToMany(mappedBy = "categories")
+	@JsonIgnore //para evitar loops
 	private Set<Product> products = new HashSet<>(); //obrigatório instanciar
 
 	public Category() {
