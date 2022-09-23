@@ -12,6 +12,8 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 //IMPORTANTE: Foi necessário usar o nome da classe como User_ tendo em vista que existe uma palavra reservada "user" no banco H2
 //ao utilizar user estava gerando erro na aplicação spring boot
 
@@ -34,6 +36,7 @@ public class User implements Serializable {
 	private String password;
 
 	// criando associações
+	@JsonIgnore //Devido a associação de Oder com User é obrigatório colocar essa anotation de um dos lados pra não gerar loop
 	@OneToMany(mappedBy = "client")
 	private List<Order> orders = new ArrayList<>(); // um OUser possui vários OOrder
 
