@@ -12,6 +12,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.databind.jsonFormatVisitors.JsonFormatTypes;
+
 @Entity // Anotations para que o JPA crie/atualize o banco de dados
 @Table(name = "tb_order")
 public class Order implements Serializable {
@@ -21,6 +24,8 @@ public class Order implements Serializable {
 		// dados
 	@GeneratedValue(strategy = GenerationType.IDENTITY) // define auto incremento no campo id
 	private Long id;
+	
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'",timezone = "GMT") //pra garantir que o instant seja mostrado lá no Json no formato ISO8001 
 	private Instant moment;
 
 	// criando associações
