@@ -11,6 +11,7 @@ import org.springframework.context.annotation.Profile;
 import com.example.workshop.entities.Category;
 import com.example.workshop.entities.Order;
 import com.example.workshop.entities.OrderItem;
+import com.example.workshop.entities.Payment;
 import com.example.workshop.entities.Product;
 import com.example.workshop.entities.User;
 import com.example.workshop.entities.enums.OrderStatus;
@@ -82,6 +83,13 @@ public class TestConfig implements CommandLineRunner {
 		OrderItem oi4 = new OrderItem(o3, p5, 2, p5.getPrice());
 
 		orderItemRepository.saveAll(Arrays.asList(oi1, oi2, oi3, oi4)); // userRepository.saveAll recebe uma lista
+		
+		
+		Payment pay1 = new Payment(null, Instant.parse("2019-06-20T21:53:07Z"), o1);
+		//IMPORTANTE, para salvar um objeto dependente numa relação um para um não deve chamar o repository do objeto dependente
+		//invez disso faça assim:
+		o1.setPayment(pay1); //associou o pedido 1 com o pagamento 1
+		orderRepository.save(o1);//depois é só salvar o objeto o1
 
 	}
 
