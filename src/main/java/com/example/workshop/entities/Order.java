@@ -19,6 +19,7 @@ import javax.persistence.Table;
 
 import com.example.workshop.entities.enums.OrderStatus;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity // Anotations para que o JPA crie/atualize o banco de dados
 @Table(name = "tb_order")
@@ -113,6 +114,15 @@ public class Order implements Serializable {
 	public void setPayment(Payment payment) {
 		this.payment = payment;
 	}
+	
+	public Double getTotal() { //padrão no JavaEE, sempre usar o get no começo para aparecer no resultado do Jason
+		double soma = 0;
+		for(OrderItem x : items) {
+			soma+= x.getSubTotal();
+		}
+		return soma;
+	}
+	
 
 	@Override
 	public int hashCode() {
