@@ -36,7 +36,7 @@ public class User implements Serializable {
 	private String password;
 
 	// criando associações
-	@JsonIgnore //Devido a associação de Oder com User é obrigatório colocar essa anotation de um dos lados pra não gerar loop
+	@JsonIgnore //Devido a associação de Oder com User é obrigatório colocar essa anotation de um dos lados pra não gerar loop infinito
 	@OneToMany(mappedBy = "client")
 	private List<Order> orders = new ArrayList<>(); // um OUser possui vários OOrder
 

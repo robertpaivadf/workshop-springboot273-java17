@@ -29,6 +29,6 @@ public class UserResource {
 	@GetMapping(value="/{id}") // lá no postman no GET pode se usar : http://localhost:8080/users/{id} ou seja, /1 ou /2 etc...
 	public ResponseEntity<User> findById(@PathVariable Long id) { //Use @PathVariable pro spring entender que haverá parâmentros vindo de requisição
 		User obj = service.findById(id);
-		return ResponseEntity.ok().body(obj);
+		return ResponseEntity.ok().body(obj); //ResponseEntity.ok() para retornar a resposta de sucesso do HTTP e no corpo da resposta (.body(obj)) vai colocar a lista
 	}
 }

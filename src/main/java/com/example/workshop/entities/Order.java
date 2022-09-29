@@ -43,7 +43,7 @@ public class Order implements Serializable {
 
 	// criando associações
 	@ManyToOne // cria uma chave estrangeira
-	@JoinColumn(name = "client_id") // especifica o nome da chave estrangeira
+	@JoinColumn(name = "client_id") // especifica o nome da chave estrangeira que vai ter lá no banco de dados
 	private User client;
 
 	@OneToMany(mappedBy = "id.order")
