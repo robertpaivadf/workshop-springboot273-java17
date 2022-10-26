@@ -25,7 +25,7 @@ import com.example.workshop.repositories.UserRepository;
 				// configuração
 @Profile("test") // O Spring só vai rodar essa configuração quando estiver no perfil de teste
 public class TestConfig implements CommandLineRunner {
-
+	
 	@Autowired // só com isso o próprio spring resolve esta dependência
 	private UserRepository userRepository;
 

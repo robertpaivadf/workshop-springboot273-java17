@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.example.workshop.entities.User;
 import com.example.workshop.repositories.UserRepository;
+import com.example.workshop.services.exceptions.ResourceNotFoundException;
 
 @Service // registrando UserService como um Serviço do spring na camada de serviço
 public class UserService {
@@ -21,7 +22,8 @@ public class UserService {
 	
 	public User findById(Long id) {
 		Optional<User> obj = repository.findById(id);
-		return obj.get();
+		return obj.orElseThrow(() -> new ResourceNotFoundException(id));
+		//O orElseThrow ele tenta fazer o get se não conseguir ele lança uma exception 
 	}
 	
 	public User insert(User obj) {
