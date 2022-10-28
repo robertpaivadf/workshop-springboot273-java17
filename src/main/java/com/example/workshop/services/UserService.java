@@ -3,6 +3,8 @@ package com.example.workshop.services;
 import java.util.List;
 import java.util.Optional;
 
+import javax.persistence.EntityNotFoundException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -44,9 +46,13 @@ public class UserService {
 	}
 	
 	public User update(Long id, User obj) {
-		User entity = repository.getOne(id); //não vai no banco de dados, apenas cria um obj monitorado, ele só prepara o obj pra vc mexer e depois é que faz operação no BD
-		updateData(entity, obj);
-		return repository.save(entity);
+		try {
+			User entity = repository.getOne(id); //não vai no banco de dados, apenas cria um obj monitorado, ele só prepara o obj pra vc mexer e depois é que faz operação no BD
+			updateData(entity, obj);
+			return repository.save(entity);
+		}catch (EntityNotFoundException e) {
+			throw new ResourceNotFoundException(id);
+		}
 	}
 
 	private void updateData(User entity, User obj) {
