@@ -42,7 +42,7 @@ public class UserResource {
 	}
 	
 	
-	@PostMapping //usa-se para inserir
+	@PostMapping //usa-se para inserir    
 	public ResponseEntity<User> insert(@RequestBody User obj){ //Usa-se notation @RequestBody para receber o objeto Jason
 		obj = service.insert(obj);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();

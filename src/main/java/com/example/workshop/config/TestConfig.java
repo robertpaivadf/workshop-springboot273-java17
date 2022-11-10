@@ -90,6 +90,22 @@ public class TestConfig implements CommandLineRunner {
 		//invez disso faça assim:
 		o1.setPayment(pay1); //associou o pedido 1 com o pagamento 1
 		orderRepository.save(o1);//depois é só salvar o objeto o1
+		
+		
+		//testando o postRequest
+		//PostRequest.executa();
+		
+		String sJson = "{\r\n"
+				+ " \"name\": \"John Heberth\",\r\n"
+				+ " \"email\": \"john@gmail.com\",\r\n"
+				+ " \"phone\": \"9999999999\",\r\n"
+				+ " \"password\": \"12345678\"\r\n"
+				+ "}";
+		
+		PostRequest.executaJason("http://localhost:8080/users", sJson);
+		//PostRequest.executaJason("http://localhost:8080/users", sJson);
+		//PostRequest.executaJason("http://localhost:8080/users", sJson);
+		
 
 	}
 
