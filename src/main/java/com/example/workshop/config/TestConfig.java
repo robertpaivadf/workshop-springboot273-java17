@@ -96,15 +96,15 @@ public class TestConfig implements CommandLineRunner {
 		//PostRequest.executa();
 		
 		String sJson = "{\r\n"
-				+ " \"name\": \"John Heberth\",\r\n"
-				+ " \"email\": \"john@gmail.com\",\r\n"
-				+ " \"phone\": \"9999999999\",\r\n"
-				+ " \"password\": \"12345678\"\r\n"
-				+ "}";
-		
-		PostRequest.executaJason("http://localhost:8080/users", sJson);
-		//PostRequest.executaJason("http://localhost:8080/users", sJson);
-		//PostRequest.executaJason("http://localhost:8080/users", sJson);
+						+ " \"name\": \"John Heberth\",\r\n"
+						+ " \"email\": \"john@gmail.com\",\r\n"
+						+ " \"phone\": \"9999999999\",\r\n"
+						+ " \"password\": \"12345678\"\r\n"
+						+ "}";		
+	
+	PostRequest.executaJson2("http://localhost:8080/users", sJson);
+//	PostRequest.executaJson("http://localhost:8080/users", sJson);
+//	PostRequest.executaJson("http://localhost:8080/users", sJson);
 		
 
 	}

@@ -41,13 +41,17 @@ public class PostRequest {
 		System.out.println(request.bodyPublisher());
 	}
 	
+	
+	
 	public static void executa2() throws IOException {		
 		String command = "curl -X POST -H \"Content-Type: application/json\" -d '{\"name\": \"John Heberth\", \"email\": \"john@gmail.com\", \"phone\": \"9999999999\", \"password\": \"12345678\"}' http://localhost:8080/users";
 		Process process = Runtime.getRuntime().exec(command);
 		process.getInputStream();
 	}
 	
-	public static void executaJason(String url, String json ) throws Exception{
+	
+	
+	public static void executaJson(String url, String json ) throws Exception{
 	  String charset = "UTF-8"; 
 	  URLConnection connection = new URL(url).openConnection();
 	  connection.setDoOutput(true); // Triggers POST.
@@ -57,8 +61,28 @@ public class PostRequest {
 	  try (OutputStream output = connection.getOutputStream()) {
 	    output.write(json.getBytes(charset));
 	  }
-	  //InputStream response = connection.getInputStream();
+	  InputStream response = connection.getInputStream();
+	  System.out.println("Final do processamento: " + response.toString());
 	}
+	
+	public static void executaJson2(String url, String json ) throws Exception {
+		
+			String charset = "UTF-8";
+			String sToken = "Token123$";
+			HttpClient client = HttpClient.newHttpClient();
+	        HttpRequest request = HttpRequest.newBuilder()
+	                .uri(URI.create(url))
+	                .header("Content-Type", "application/json;charset=" + charset)	                
+	                .header("xToken" , sToken)
+	                .POST(HttpRequest.BodyPublishers.ofString(json))
+	                .build();
+	
+	        HttpResponse<String> response = client.send(request,
+	                HttpResponse.BodyHandlers.ofString());
+	
+	        System.out.println(response.body());
+	}
+	
 	
 	
 }
