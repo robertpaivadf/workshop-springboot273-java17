@@ -102,10 +102,9 @@ public class TestConfig implements CommandLineRunner {
 						+ " \"password\": \"12345678\"\r\n"
 						+ "}";		
 	
-	PostRequest.executaJson2("http://localhost:8080/users", sJson);
-//	PostRequest.executaJson("http://localhost:8080/users", sJson);
-//	PostRequest.executaJson("http://localhost:8080/users", sJson);
-		
+		//chamada PostRequest	
+		PostRequest.executaJson2("http://localhost:8080/users", sJson);
+	
 
 	}
 
